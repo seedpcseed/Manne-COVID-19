@@ -1,0 +1,37 @@
+Outcomes Interventional|trials Observational|trials Health|disparities 
+Clinical|research Translational|research Pre-clinical|research Database|informatics Omic|informatics Clinical|diagnostics Geospacial Health|disparities Innate|immunology Cellular|immunity Virology Microbiology|non-virology Diagnostic|testing 
+Clinical|research Translational|research Interventional|trials Observational|trials Health|disparities 
+Health|services|research Clinical|research Translational|research Pre-clinical|research Healthcare/Biomedical|economics Database|informatics Electronics|health|record|informatics Biostatistics Predictive|analytics Outcomes Interventional|trials Observational|trials Survey|tools Health|disparities 
+Clinical|research Translational|research Clinical|diagnostics Clinical|immunology Innate|immunology Cellular|immunity Host|responses|to|infection,|stress,|damage Virology Diagnostic|testing 
+Clinical|research Predictive|analytics Outcomes Interventional|trials Observational|trials Clinical|diagnostics 
+Health|services|research Biostatistics Survey|tools Health|disparities 
+Translational|research Pre-clinical|research Biostatistics 
+stress|responses,|behavioral|health,|psychological|interventions,|mHealth|and|digital|interventions| Health|services|research Clinical|research Observational|trials Survey|tools Psychometrics 
+Health|services|research Clinical|research Database|informatics Electronics|health|record|informatics Outcomes Health|disparities 
+Health|services|research Clinical|research Database|informatics Electronics|health|record|informatics 
+Bioethics Diagnostic|testing 
+Translational|research Cellular|immunity Host|responses|to|infection,|stress,|damage 
+Pre-clinical|research 
+Clinical|research Translational|research Pre-clinical|research Innate|immunology Cellular|immunity 
+Clinical|research Translational|research Pre-clinical|research Omic|informatics Interventional|trials Observational|trials Innate|immunology Host|responses|to|infection,|stress,|damage Virology Diagnostic|testing 
+Electronics|health|record|informatics Observational|trials 
+Communication/Decision|Making Clinical|research Bioethics Psychometrics Demography 
+Pre-clinical|research Host|responses|to|infection,|stress,|damage Virology 
+Clinical|research Translational|research Omic|informatics Observational|trials Clinical|diagnostics 
+Clinical|research Translational|research 
+Health|services|research Clinical|research Healthcare/Biomedical|economics Health|disparities 
+social|and|behavioral|research|with|an|emphasis|on|physical|and|social|environmental|determinants|of|health 
+Bioethics Healthcare/Biomedical|law 
+Diagnostic|testing Device|engineering 
+Community-based|social|and|behavioral|research|and|intervention|development Health|services|research Interventional|trials Observational|trials Survey|tools Psychometrics Health|disparities 
+Bioethics 
+Health|services|research Clinical|research Translational|research 
+Health|services|research Database|informatics Electronics|health|record|informatics Survey|tools Demography Geospacial Health|disparities 
+Translational|research 
+Health|services|research Clinical|research Database|informatics Electronics|health|record|informatics Biostatistics Predictive|analytics Outcomes Observational|trials Clinical|diagnostics Geospacial Health|disparities 
+Translational|research Pre-clinical|research Host|responses|to|infection,|stress,|damage 
+Health|services|research Survey|tools Health|disparities 
+drug|screening Translational|research Pre-clinical|research Interventional|trials Virology Therapeutics|engineering 
+Clinical|microbiology 
+Clinical|research Translational|research Pre-clinical|research Clinical|immunology Innate|immunology Cellular|immunity Virology 
+Database|informatics Electronics|health|record|informatics Clinical|diagnostics Health|disparities Diagnostic|testing 

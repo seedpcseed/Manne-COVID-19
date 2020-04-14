@@ -1,6 +1,7 @@
 ---
-title: "Manne Research Institute COVID-19 Expertise and Investigations"
-author: "Patrick Seed"
+title: | 
+  <span style='font-size:30 px'> Manne Research Institute <br>
+  COVID-19 Response</style>
 date: "April 12, 2020"
 output: html_document
 ---
@@ -9,62 +10,192 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r libraries message=FALSE, error=FALSE, warning=FALSE}
+
+```{r, echo=FALSE}
+htmltools::img(src=knitr::image_uri("./images/manne.png"),
+               style='position: absolute; top:0; right:0; padding:10px;')
+```
+
+```{r libraries,message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(readxl)
 library(highcharter)
+library(tm)
+library(SnowballC)
+library(wordcloud)
+library(XML)
+library(RCurl)
+library(RColorBrewer)
+library(DT)
+library(qwraps2)
+library(magrittr)
+library(icon)
+library(fontawesome)
+
+options(qwraps2_markup = "markdown")
+
+source("./R/rquery-wordcloud.R")
 ```
 
+# COVID-19 Survey
+`r knitr::include_graphics("./images/viruses-solid.png")`
 
-```{r read survey data message=FALSE, error=FALSE, warning=FALSE}
+
+## Introduction
+
+In response to the COVID-19 pandemic, the Stanley Manne Children's Research Institute has conducted a survey of expertise and scientific interest in the problem among our scientists. The survey has the following central goals:
+
+- Identify existing expertise relevant to COVID-19 including pre-clinical, clinical, behavioral, population health, and bioethical areas.
+- Identify specific prior expertise in coronaviruses.
+- Learn of existing collaborative groups around COVID-19.
+- Find opportunities to connect interested scientists into existing and new collaborative groups.
+- Connect interested scientists into the Feinberg School of Medicine and NUCATS efforts around COVID-19 research.
+
+This document serves to summarize data from the survey that can be disseminated to start new conversations and collaborations.
+
+```{r read survey data, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 covid.df<- read_xlsx("./data/Manne Research Institute COVID-19 Research Survey (1).xlsx")
+cn<- make.names(colnames(covid.df), unique=TRUE)
+colnames(covid.df)<- cn
+```
+
+## The Survey Data
+
+A survey was distributed to Manne Research Institute investigators on Tuesday, 4/7/2020 and first closed on Friday, 4/10/2020.  We received `r nrow(covid.df)` responses.
+
+### Expertise and interest in Coronaviruses and COVID-19
+
+The survey asked investigators to identify themselves, their clinical and scientific expertise including specific expertise with COVID-19, and their interest in collaborating on COVID-19-related research.
+
+
+The investigators (see the end for the full list of names) have a range of ranks and clinical affiliations.
+
+```{r , message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+expert<- covid.df %>% select(Name, Clinical.expertise.unified) %>% arrange(Name)
+datatable(expert)
+```
+
+Survey respondants provided their names and positions at Northwestern or at Lurie Children's.  A number of different ranks and areas of clinical expertise were represented in the survey.
+
+```{r , message=FALSE, error=FALSE, warning=FALSE, echo=FALSE, results='asis'}
+investigators<- covid.df %>% dplyr::select(.data$Title, .data$Clinical.expertise.unified)
+summary_table(investigators)
+```
+
+```{r , echo=FALSE}
+prepare.wordcloud<- function(s){
+  paste(s %>%
+        replace_na(" ") %>%
+        str_replace_all(" ", "_") %>%
+        str_replace_all(",", "_") %>%
+        str_replace_all(";", " ") %>% 
+        str_replace_all("/", ""), 
+        sep="", collapse = " ")
+}
+
+clrs<- RColorBrewer::brewer.pal(12,"Paired")
+
+wordcloud::wordcloud(prepare.wordcloud(investigators$Clinical.expertise.unified), scale=c(4,0.5), rot.per = 0.3, colors = clrs, min.freq = 2)
+```
+
+We also asked if any of our investigators have specific knowledge and experience around coronaviruses. This information is intended to anchor work and may help with collaborations to ensure the research foci have appropriate foci and relevance.
+
+
+```{r basic stats on number of unique respondants etc, message=FALSE, warning=FALSE, error=FALSE, results='asis', echo=FALSE}
+
+#table of interest around COVID 19 research
+
+expertise<-covid.df %>% dplyr::select(.data$Do.you.have.specific.coronavirus.research.expertise.,
+                      .data$Do.you.have.an.interest.in.collaborating.in.COVID.19.research.) %>% summary_table(.)
+expertise
 ```
 
 
-```{r message=FALSE, error=FALSE, warning=FALSE}
+#### Individuals in the Manne Research Interest with Specific Coronavirus Expertise
 
+We asked individuals to identify specific experience related to coronavirus scholarly work.  A small set of individuals identified themselves as having some related experience.
+
+
+```{r , message=FALSE, warning=FALSE, error=FALSE, results='asis', echo=FALSE}
+
+#table of who has expertise
+#
+experts<-covid.df %>% filter(Do.you.have.specific.coronavirus.research.expertise.=="Yes" ) %>% 
+  select(Name, Please.explain.your.coronavirus.research.expertise.here)
+
+
+datatable(experts, rownames=FALSE,
+          colnames=c("Name", "Coronavirus Expertise"),
+          options = list(dom = 't'))
+```
+
+
+###Keywords for areas of interest in current COVID-19 work and areas that investigators hope to collaborate.
+
+Respondants indicated keywords corresponding to their current areas of COVID-19 research and, in cases where applicable, to areas where they would like to participate and collaborate on COVID-19 research.
+
+```{r , message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+#get the keywords into a unique vector
+#
+#
+
+current.work<-prepare.wordcloud(covid.df$Keywords.areas.of.current.COVID.19.research)
+interested.work<-prepare.wordcloud(covid.df$Keywords.areas.of.interest.for.collaboration.in.COVID.19.research) 
+
+```
+
+The wordcloud below indicates areas of current work by Manne Research Institute investigators. Population health and clinical research are the most represented. Other areas include damage responses. The word density reflects two main factors: 1) a smaller number of investigators are currently working on COVID-19 and 2) the survey response rate was modest. 
+
+```{r , message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+#make word clouds
+#
+wordcloud::wordcloud(current.work, scale=c(2,0.1), colors = clrs, rot.per = 0.3)
+```
+
+
+We also asked respondants to indicate areas of research of potential participation and collaboration based on their interests. The higher word density demonstrates the common interest in participating in a wide number of areas. 
+
+
+```{r , message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+#make word clouds
+#
+wordcloud::wordcloud(interested.work, scale=c(2,0.1), colors = clrs, rot.per = 0.3)
 ```
 
 
 
-```{r message=FALSE, error=FALSE, warning=FALSE}
+```{r message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 
 
 ```
 
 
-```{r message=FALSE, error=FALSE, warning=FALSE}
+```{r message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 
 
 ```
 
 
-```{r message=FALSE, error=FALSE, warning=FALSE}
+```{r message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 
 
 ```
 
 
-```{r message=FALSE, error=FALSE, warning=FALSE}
+```{r message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 
 
 ```
 
 
-```{r message=FALSE, error=FALSE, warning=FALSE}
+```{r message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 
 
 ```
 
 
-```{r message=FALSE, error=FALSE, warning=FALSE}
-
-
-```
-
-
-```{r message=FALSE, error=FALSE, warning=FALSE}
+```{r message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
 
 
 ```
